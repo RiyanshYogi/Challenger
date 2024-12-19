@@ -85,9 +85,9 @@ const Challenger = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <div>
-        <button onClick={() => handleClick("days")}>Days</button>
-        <button onClick={() => handleClick("hours")}>Hours</button>
-        <button onClick={() => handleClick("minutes")}>Minutes</button>
+        <button onClick={() => handleClick("days")}>DAYS</button>
+        <button onClick={() => handleClick("hours")}>HOURS</button>
+        <button onClick={() => handleClick("minutes")}>MINUTES</button>
       </div>
       <div style={{ marginTop: "20px" }}>
         <p>Days: {displayText.days}</p>
