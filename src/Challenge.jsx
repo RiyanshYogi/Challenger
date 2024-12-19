@@ -11,15 +11,14 @@ import {
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyACq6LOxfNrUCpHtowTyBpbpbJOWyOfWyA",
-    authDomain: "challenger-648f3.firebaseapp.com",
-    projectId: "challenger-648f3",
-    storageBucket: "challenger-648f3.firebasestorage.app",
-    messagingSenderId: "736297614690",
-    appId: "1:736297614690:web:9cf8936f21e2313c1c003b",
-    measurementId: "G-70WLLMNYK0"
-  };
-
+  apiKey: "AIzaSyACq6LOxfNrUCpHtowTyBpbpbJOWyOfWyA",
+  authDomain: "challenger-648f3.firebaseapp.com",
+  projectId: "challenger-648f3",
+  storageBucket: "challenger-648f3.firebasestorage.app",
+  messagingSenderId: "736297614690",
+  appId: "1:736297614690:web:9cf8936f21e2313c1c003b",
+  measurementId: "G-70WLLMNYK0"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -30,13 +29,14 @@ const Challenger = () => {
     days: null,
     hours: null,
     minutes: null,
+    seconds: null,
   });
 
   const [displayText, setDisplayText] = useState({
     days: "Not clicked yet",
     hours: "Not clicked yet",
     minutes: "Not clicked yet",
-    seconds: "Not clicked yet"
+    seconds: "Not clicked yet",
   });
 
   // Fetch data from Firebase on load
@@ -84,9 +84,13 @@ const Challenger = () => {
 
   // Handle button click and update Firebase
   const handleClick = async (unit) => {
-    const newTime = { ...clickTimes, [unit]: new Date().toISOString() };
-    await setDoc(doc(db, "clickTimes", "timestamps"), newTime);
-    setClickTimes(newTime);
+    try {
+      const newTime = { ...clickTimes, [unit]: new Date().toISOString() };
+      await setDoc(doc(db, "clickTimes", "timestamps"), newTime);
+      setClickTimes(newTime);
+    } catch (error) {
+      console.error("Error updating timestamp:", error);
+    }
   };
 
   return (
@@ -95,7 +99,7 @@ const Challenger = () => {
         <button onClick={() => handleClick("days")}>DAYS</button>
         <button onClick={() => handleClick("hours")}>HOURS</button>
         <button onClick={() => handleClick("minutes")}>MINUTES</button>
-        <button onClick={() => handleClick("minutes")}>SECONDS</button>
+        <button onClick={() => handleClick("seconds")}>SECONDS</button>
       </div>
       <div style={{ marginTop: "20px" }}>
         <p>Days: {displayText.days}</p>
