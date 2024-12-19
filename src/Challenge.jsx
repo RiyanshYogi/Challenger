@@ -36,6 +36,7 @@ const Challenger = () => {
     days: "Not clicked yet",
     hours: "Not clicked yet",
     minutes: "Not clicked yet",
+    seconds: "Not clicked yet"
   });
 
   // Fetch data from Firebase on load
@@ -69,6 +70,12 @@ const Challenger = () => {
               { unit: "minute" }
             )
           : "Not clicked yet",
+        seconds: clickTimes.seconds
+          ? formatDistanceToNowStrict(
+              new Date(clickTimes.seconds),
+              { unit: "second" }
+            )
+          : "Not clicked yet",
       });
     }, 1000);
 
@@ -88,11 +95,13 @@ const Challenger = () => {
         <button onClick={() => handleClick("days")}>DAYS</button>
         <button onClick={() => handleClick("hours")}>HOURS</button>
         <button onClick={() => handleClick("minutes")}>MINUTES</button>
+        <button onClick={() => handleClick("minutes")}>SECONDS</button>
       </div>
       <div style={{ marginTop: "20px" }}>
         <p>Days: {displayText.days}</p>
         <p>Hours: {displayText.hours}</p>
         <p>Minutes: {displayText.minutes}</p>
+        <p>Seconds: {displayText.seconds}</p>
       </div>
     </div>
   );
